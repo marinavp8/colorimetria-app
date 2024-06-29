@@ -1,6 +1,11 @@
 "use client"
 import React, { useState, ChangeEvent } from 'react';
-import axios from 'axios';
+import Result2 from "./Result";
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { GrLinkNext } from "react-icons/gr";
+import { Label } from "@/components/ui/label"
+
 
 interface Result {
     hair: string;
@@ -8,7 +13,10 @@ interface Result {
     skin: string;
     lips: string;
     colorimetria: string;
+    // season: "Verano" | "Otoño" | "Invierno" | "Primavera";
+    // subseason: string
 }
+
 
 const ImageUpload = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -40,9 +48,20 @@ const ImageUpload = () => {
 
     return (
         <div>
-            <h1>Determina tu colorimetría</h1>
+            <div className="flex w-full max-w-sm items-center space-x-2">
+                <Input id="picture" type="file" onChange={handleFileChange} />
+                <Button onClick={handleUpload}><GrLinkNext className='text-white' />
+                </Button>
+            </div>
+
+
+            <div className='text-gray-600 mt-3 ml-1 font-fahkwang'>
+                <Label htmlFor="picture">Make sure the photo is clear and the face is visible.</Label>
+            </div>
+
+            {/* <h1>Determina tu colorimetría</h1>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Subir Imagen</button>
+            <button onClick={handleUpload}>Subir Imagen</button> */}
             {result && (
                 <div>
                     <p>Cabello: <span style={{ color: result.hair }}>{result.hair}</span></p>
@@ -50,6 +69,8 @@ const ImageUpload = () => {
                     <p>Piel: <span style={{ color: result.skin }}>{result.skin}</span></p>
                     <p>Labios: <span style={{ color: result.lips }}>{result.lips}</span></p>
                     <p>Colorimetría: {result.colorimetria}</p>
+                    {/* <p>SubColorimetría: {result.subseason}</p> */}
+                    {/* <Result2 result={result.subseason} /> */}
                 </div>
             )}
         </div>
